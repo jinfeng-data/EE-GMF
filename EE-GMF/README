@@ -1,0 +1,45 @@
+EE-GMF v0.1 (by Liu Jinfeng 2021.5)
+
+Introduction--------------------------------------------------------------------
+
+The electrostatically embedded generalized molecular fractionation (EE-GMF) method 
+is developed for quantum calculation of large-sized molecular clusters at diverse 
+ab initio levels. In this method, each individual molecule of the cluster could be 
+treated as a fragment with the remaining molecules representing as the background. 
+The energy of each fragment and the interaction energy between two fragments that 
+are spatially in close contact are computed by quantum mechanics, while the two-body
+interaction energies between distant fragment pairs are described by classical Coulomb 
+interactions. All quantum calculations are embedded in the electrostatic field of the
+point charges representing the remaining system to account for the environmental effect.
+All quantum calculations are carried out by calling the Gaussian09/16 program.
+--------------------------------------------------------------------------------
+
+Compile-------------------------------------------------------------------------
+
+0. It is highly recommended to compile parallel (MPI) version of EE-GMF to accelerate
+   the fragment calculation. Hence you should have installed MPI and that mpif90 are 
+   in your PATH.
+   
+1. Open a shell terminal, extract the compressed file to the current directory.
+
+2. cd to the "EE-GMF" folder, and run the following:
+   mpif90 frag-main.f90 fragmentation.f90 energy_cal.f90 -o frag.x
+
+Run EE-GMF-----------------------------------------------------------------------
+
+0. Prepare the structure files of the molecular cluster. The pdb file contains the 
+   atom name and index, and each individual molecule should be spaced by a "TER". 
+   The inpcrd file contains the total number of the atom and the atomic coordinates.
+   Put the names of the used computation nodes to the hostfile. 
+
+1. run the "run_frag.sh" script to start EE-GMF. 
+---------------------------------------------------------------------------------
+
+Use EE-GMF for molecular minimization-------------------------------------------
+
+The EE-GMF program can be interfaced with the geometry-optimization method. We use
+the quasi-Newton algorithm, which can be found in the numerical recipes, to optimize 
+the molecular structure. For each step of the optimizaiton, the energy and the atomic 
+forces can be calculated by EE-GMF. Hence one could call EE-GMF in their optimization 
+program to achieve the quantum molecular optimization.
+--------------------------------------------------------------------------------
