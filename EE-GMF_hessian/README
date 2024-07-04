@@ -1,0 +1,43 @@
+EE-GMF v0.1 (by Liu Jinfeng 2021.5)
+
+Introduction--------------------------------------------------------------------
+
+The electrostatically embedded generalized molecular fractionation (EE-GMF) method 
+is developed for quantum calculation of large-sized molecular clusters at diverse 
+ab initio levels. In this method, each individual molecule of the cluster could be 
+treated as a fragment with the remaining molecules representing as the background. 
+The energy of each fragment and the interaction energy between two fragments that 
+are spatially in close contact are computed by quantum mechanics, while the two-body
+interaction energies between distant fragment pairs are described by classical Coulomb 
+interactions. All quantum calculations are embedded in the electrostatic field of the
+point charges representing the remaining system to account for the environmental effect.
+All quantum calculations are carried out by calling the Gaussian09/16 program.
+--------------------------------------------------------------------------------
+
+Compile-------------------------------------------------------------------------
+
+0. It is highly recommended to compile parallel (MPI) version of EE-GMF to accelerate
+   the fragment calculation. Hence you should have installed MPI and that mpif90 are 
+   in your PATH.
+   
+1. Open a shell terminal, extract the compressed file to the current directory.
+
+2. cd to the "EE-GMF_hessian" folder, and run the following:
+   mpif90 frag-main.f90 fragmentation.f90 energy_cal.f90 -o frag.x
+   ifort -CB parameter.f90 -o parameter.x
+
+Run EE-GMF-----------------------------------------------------------------------
+
+0. Prepare the optimized structure files of the molecular cluster. The pdb file 
+   contains the atom name and index, and each individual molecule should be spaced 
+   by a "TER". The rst file contains the total number of the atom and the optimized 
+   atomic coordinates. Put the names of the used computation nodes to the hostfile. 
+
+1. If one want to obtain the polarizability derivative information, edit the fragmentation.f90
+   file to change 'freq' to 'freq=raman'.
+
+2. run the "run_frag.sh" script to start EE-GMF.
+
+3. ./parameter.x generates the hessian matrix, dipole and polarizability derivatives 
+   in the hessian.info, dipole_deriv.info, and raman.txt files respectively.   
+---------------------------------------------------------------------------------
