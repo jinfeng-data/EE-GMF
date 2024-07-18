@@ -1,0 +1,8 @@
+This is a demo to run the PBC-EE-GMF (or EE-GMF) calculations of the condensed phase water system.
+
+1. The perform_calc.f90 program read water structures from the struc.crd file, which contains multiple
+water structures with each having 64 water molecules in the periodic boundary condition box. And then it
+start the PBC-EE-GMF calculations. The run.sh is the job submitting script in our computation platform.
+
+2. The calculation generates the system energy and atomic forces in the out_withoutEwald.data and force_
+withoutEwald.dat files, which can be used to train the deep potential.
