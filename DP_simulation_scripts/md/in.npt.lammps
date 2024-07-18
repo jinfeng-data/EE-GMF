@@ -1,0 +1,27 @@
+# bulk water
+
+units           metal
+boundary        p p p
+atom_style      atomic
+
+neighbor        2.0 bin
+neigh_modify    every 10 delay 0 check no
+
+read_data	water.lmp
+#read_restart    restart0.dat
+mass 		1 16
+mass		2 1
+
+pair_style	deepmd dp-cc.pb
+pair_coeff	* *
+
+velocity        all create 300.0 23456789
+
+fix             1 all npt temp 300.0 300.0 0.05 iso 1.0 1.0 0.5
+timestep        0.0005
+thermo_style    custom step pe ke etotal temp press vol density lx ly lz
+thermo          100
+dump		1 all custom 100 water.npt.dump id type x y z ix iy iz fx fy fz
+
+run             1000000
+write_restart   restart1.dat

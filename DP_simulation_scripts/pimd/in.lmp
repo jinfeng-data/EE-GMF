@@ -1,0 +1,18 @@
+# ---------------------- INITIALIZAITION ------------------
+units		metal
+boundary        p p p
+atom_style	atomic
+# --------------------- ATOM DEFINITION ------------------
+read_data	water.lmp
+replicate       1 1 1
+mass            1 16.000000
+mass            2 1.000000
+# --------------------- FORCE FIELDS ---------------------
+pair_style      deepmd dp-cc.pb
+pair_coeff      * *
+# --------------------- MD SETTINGS ----------------------
+timestep	0.0001
+
+fix 1 all ipi localhost11 31429 unix
+
+run		200000000
