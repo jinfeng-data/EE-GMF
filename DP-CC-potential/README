@@ -6,5 +6,7 @@ The DP-CC potential for liquid water is built at the coupled-cluster level of th
 by combining the PBC-EE-GMF fragmentation method and neural network deep learning method.
 This potential can be used for accurate and efficient molecular dynamics simulations and 
 path integral molecular dynamic simulations of liquid water. 
+
+The dp2.0_input.json is the input file to train the DP-CC potential by using the DeepMD-kit.
 --------------------------------------------------------------------------------
 
